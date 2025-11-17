@@ -41,6 +41,9 @@ export function TiaraBox({ unlocked }: TiaraBoxProps) {
   const [isOpening, setIsOpening] = useState(false);
 
   const currentItem = tiaraBoxItems[currentIndex];
+  const spillSide = currentIndex % 2 === 0 ? "left" : "right";
+  const spillX = spillSide === "left" ? -32 : 32;
+  const spillRotate = spillSide === "left" ? -8 : 8;
 
   const boxControls = useAnimation();
 
@@ -184,7 +187,7 @@ export function TiaraBox({ unlocked }: TiaraBoxProps) {
         </motion.div>
 
         {/* Box body */}
-        <div className="relative z-10 flex h-3/5 flex-col rounded-2xl bg-gradient-to-t from-cyan-200 to-cyan-100 px-4 pb-4 pt-6 shadow-md">
+        <div className="relative z-10 flex h-3/5 flex-col overflow-visible rounded-2xl bg-gradient-to-t from-cyan-200 to-cyan-100 px-4 pb-4 pt-6 shadow-md">
           {/* Vertical ribbon */}
           <motion.div
             className="pointer-events-none absolute inset-y-0 left-1/2 w-4 -translate-x-1/2 bg-white/80"
@@ -213,7 +216,7 @@ export function TiaraBox({ unlocked }: TiaraBoxProps) {
           />
 
           {/* Inner content area */}
-          <div className="relative z-10 flex h-full w-full items-center justify-center">
+          <div className="relative z-10 flex h-full w-full items-end justify-center overflow-visible">
             {!unlocked ? (
               <div className="flex flex-col items-center gap-2 text-center">
                 <p className="text-sm font-semibold text-cyan-900">
@@ -233,11 +236,23 @@ export function TiaraBox({ unlocked }: TiaraBoxProps) {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentIndex}
-                  initial={{ opacity: 0, y: 8, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -8, scale: 0.98 }}
-                  transition={{ duration: 0.25 }}
-                  className="flex h-full w-full items-center justify-center"
+                  initial={{ opacity: 0, y: 24, x: 0, rotate: 0, scale: 0.9 }}
+                  animate={{
+                    opacity: 1,
+                    y: -20,
+                    x: spillX,
+                    rotate: spillRotate,
+                    scale: 1,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: -40,
+                    x: spillX * 1.4,
+                    rotate: spillRotate * 1.4,
+                    scale: 0.96,
+                  }}
+                  transition={{ type: "spring", stiffness: 140, damping: 14 }}
+                  className="pointer-events-none flex h-full w-full items-end justify-center overflow-visible"
                 >
                   {currentItem.type === "letter" ? (
                     <div className="flex h-full w-full flex-col items-start justify-center rounded-xl bg-white/85 p-3 text-left shadow-sm">
