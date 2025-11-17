@@ -55,7 +55,7 @@ export function Countdown({ onComplete }: CountdownProps) {
   return (
     <div className="mt-8 flex flex-col items-center gap-1 text-center text-sm text-slate-800">
       <p className="text-xs uppercase tracking-[0.18em] text-cyan-800/80">
-        Countdown to 20 May 2026 (Kolkata)
+        Countdown to 22 July 2026
       </p>
       {finished ? (
         <p className="mt-1 text-base font-semibold text-cyan-900">

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useAnimation } from "framer-motion";
 
 type TiaraBoxItem =
   | {
@@ -41,6 +41,36 @@ export function TiaraBox({ unlocked }: TiaraBoxProps) {
 
   const currentItem = tiaraBoxItems[currentIndex];
 
+  const boxControls = useAnimation();
+
+  useEffect(() => {
+    if (!unlocked) {
+      // Locked: slow bouncy wiggle
+      boxControls.start({
+        y: [0, -6, 0],
+        rotateZ: [0, -2, 2, 0],
+        scale: 1,
+        transition: {
+          duration: 2.2,
+          repeat: Infinity,
+          repeatType: "mirror",
+          ease: "easeInOut",
+        },
+      });
+    } else {
+      // Unlock moment: quick jump/pop once, then rest
+      boxControls.start({
+        y: [0, -6, 0],
+        scale: [1, 1.06, 1],
+        rotateZ: 0,
+        transition: {
+          duration: 0.5,
+          ease: "easeOut",
+        },
+      });
+    }
+  }, [unlocked, boxControls]);
+
   function handleNext() {
     if (!unlocked) {
       return;
@@ -58,6 +88,8 @@ export function TiaraBox({ unlocked }: TiaraBoxProps) {
     <motion.button
       type="button"
       onClick={handleNext}
+      animate={boxControls}
+      initial={false}
       whileHover={
         unlocked
           ? { scale: 1.03, y: -4 }
@@ -115,10 +147,7 @@ export function TiaraBox({ unlocked }: TiaraBoxProps) {
             {!unlocked ? (
               <div className="flex flex-col items-center gap-2 text-center">
                 <p className="text-sm font-semibold text-cyan-900">
-                  Locked until the countdown ends
-                </p>
-                <p className="max-w-[10rem] text-xs text-cyan-800/80">
-                  Come back when the timer reaches zero to open your gift.
+                  locked until you finish your thingy
                 </p>
               </div>
             ) : !hasOpenedOnce ? (
