@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fdf7ee;
+  --background: #ecfafe;
   --foreground: #171717;
 }
 
@@ -27,7 +27,7 @@ body {
     url("/white-plain-concrete-textured-background_53876-102604.avif"),
     radial-gradient(circle at 0 0, rgba(0, 0, 0, 0.05) 0, transparent 45%),
     radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.04) 0, transparent 50%),
-    linear-gradient(135deg, #fdf7ee, #f9f0e4);
+    linear-gradient(135deg, #f0fbff, #e3f7ff);
   background-size: 320px 320px, 420px 420px, 380px 380px, auto;
   background-repeat: repeat, no-repeat, no-repeat, no-repeat;
   background-blend-mode: multiply, normal, normal, normal;
