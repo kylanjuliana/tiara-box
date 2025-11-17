@@ -38,6 +38,7 @@ type TiaraBoxProps = {
 export function TiaraBox({ unlocked }: TiaraBoxProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hasOpenedOnce, setHasOpenedOnce] = useState(false);
+  const [isOpening, setIsOpening] = useState(false);
 
   const currentItem = tiaraBoxItems[currentIndex];
 
@@ -77,11 +78,21 @@ export function TiaraBox({ unlocked }: TiaraBoxProps) {
     }
 
     if (!hasOpenedOnce) {
-      setHasOpenedOnce(true);
+      if (isOpening) {
+        return;
+      }
+      setIsOpening(true);
       return;
     }
 
     setCurrentIndex((prev) => (prev + 1) % tiaraBoxItems.length);
+  }
+
+  function handleLidAnimationComplete() {
+    if (isOpening && !hasOpenedOnce) {
+      setHasOpenedOnce(true);
+      setIsOpening(false);
+    }
   }
 
   return (
@@ -91,12 +102,12 @@ export function TiaraBox({ unlocked }: TiaraBoxProps) {
       animate={boxControls}
       initial={false}
       whileHover={
-        unlocked
+        unlocked && !isOpening
           ? { scale: 1.03, y: -4 }
           : undefined
       }
       whileTap={
-        unlocked
+        unlocked && !isOpening
           ? { scale: 0.97, y: 0 }
           : undefined
       }
@@ -118,29 +129,88 @@ export function TiaraBox({ unlocked }: TiaraBoxProps) {
         <motion.div
           className="relative z-20 h-2/5 rounded-2xl bg-gradient-to-b from-cyan-200 to-cyan-300 shadow-md"
           animate={
-            hasOpenedOnce && unlocked
-              ? { y: -12, rotateX: 18 }
+            unlocked && (isOpening || hasOpenedOnce)
+              ? { y: -18, rotateX: 24 }
               : { y: 0, rotateX: 0 }
           }
-          transition={{ type: "spring", stiffness: 120, damping: 12 }}
+          transition={{
+            type: "spring",
+            stiffness: 140,
+            damping: 14,
+            delay: isOpening ? 0.35 : 0,
+          }}
           style={{ transformOrigin: "bottom center" }}
+          onAnimationComplete={handleLidAnimationComplete}
         >
           {/* Ribbon and bow suggestion */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="h-full w-4 rounded-full bg-white/80" />
+            <motion.div
+              className="h-full w-4 rounded-full bg-white/80"
+              animate={
+                !hasOpenedOnce
+                  ? isOpening
+                    ? { scaleY: 0.4, opacity: 0, y: 8 }
+                    : { scaleY: 1, opacity: 1, y: 0 }
+                  : { opacity: 0 }
+              }
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+              style={{ originY: 0 }}
+            />
           </div>
           <div className="absolute -bottom-2 left-1/2 flex -translate-x-1/2 gap-1">
-            <div className="h-3 w-3 rounded-full bg-rose-200 shadow-sm" />
-            <div className="h-3 w-3 rounded-full bg-rose-200 shadow-sm" />
+            <motion.div
+              className="h-3 w-3 rounded-full bg-rose-200 shadow-sm"
+              animate={
+                !hasOpenedOnce
+                  ? isOpening
+                    ? { x: -10, y: -8, rotate: -18, opacity: 0 }
+                    : { x: 0, y: 0, rotate: 0, opacity: 1 }
+                  : { opacity: 0, scale: 0.9, y: -4 }
+              }
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="h-3 w-3 rounded-full bg-rose-200 shadow-sm"
+              animate={
+                !hasOpenedOnce
+                  ? isOpening
+                    ? { x: 10, y: -8, rotate: 18, opacity: 0 }
+                    : { x: 0, y: 0, rotate: 0, opacity: 1 }
+                  : { opacity: 0, scale: 0.9, y: -4 }
+              }
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            />
           </div>
         </motion.div>
 
         {/* Box body */}
         <div className="relative z-10 flex h-3/5 flex-col rounded-2xl bg-gradient-to-t from-cyan-200 to-cyan-100 px-4 pb-4 pt-6 shadow-md">
           {/* Vertical ribbon */}
-          <div className="pointer-events-none absolute inset-y-0 left-1/2 w-4 -translate-x-1/2 bg-white/80" />
+          <motion.div
+            className="pointer-events-none absolute inset-y-0 left-1/2 w-4 -translate-x-1/2 bg-white/80"
+            animate={
+              !hasOpenedOnce
+                ? isOpening
+                  ? { scaleY: 0.4, opacity: 0, y: 10 }
+                  : { scaleY: 1, opacity: 1, y: 0 }
+                : { opacity: 0 }
+            }
+            transition={{ duration: 0.35, ease: "easeInOut" }}
+            style={{ originY: 0 }}
+          />
           {/* Horizontal ribbon */}
-          <div className="pointer-events-none absolute inset-x-4 top-1/2 h-3 -translate-y-1/2 rounded-full bg-white/70" />
+          <motion.div
+            className="pointer-events-none absolute inset-x-4 top-1/2 h-3 -translate-y-1/2 rounded-full bg-white/70"
+            animate={
+              !hasOpenedOnce
+                ? isOpening
+                  ? { scaleX: 0.1, opacity: 0 }
+                  : { scaleX: 1, opacity: 1 }
+                : { opacity: 0 }
+            }
+            transition={{ duration: 0.35, ease: "easeInOut" }}
+            style={{ originX: 0.5 }}
+          />
 
           {/* Inner content area */}
           <div className="relative z-10 flex h-full w-full items-center justify-center">
