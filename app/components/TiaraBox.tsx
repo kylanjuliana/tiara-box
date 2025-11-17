@@ -115,7 +115,7 @@ export function TiaraBox({ unlocked }: TiaraBoxProps) {
           : undefined
       }
       className={`relative flex h-72 w-72 flex-col items-center justify-center rounded-2xl border border-cyan-300 bg-gradient-to-br from-cyan-100 to-cyan-200 p-4 shadow-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-cyan-400/60 sm:h-80 sm:w-80 transition-opacity ${
-        unlocked ? "opacity-100 cursor-pointer" : "opacity-60 cursor-default"
+        unlocked ? "cursor-pointer" : "cursor-default"
       }`}
       aria-disabled={!unlocked}
       aria-label={

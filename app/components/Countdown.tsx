@@ -9,7 +9,7 @@ type Remaining = {
   seconds: number;
 };
 
-const targetDate = new Date("2025-11-17T04:31:00Z").getTime();
+const targetDate = new Date("2026-07-22T04:31:00Z").getTime();
 
 type CountdownProps = {
   onComplete?: () => void;

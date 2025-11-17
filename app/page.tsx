@@ -23,9 +23,6 @@ export default function Home() {
 
       <main className="relative z-10 flex w-full max-w-xl flex-col items-center text-center">
         <div className="mb-8 flex flex-col items-center gap-2">
-          <p className="text-xs uppercase tracking-[0.22em] text-cyan-700/80">
-            Boxie
-          </p>
           <h1 className="text-2xl font-semibold leading-snug text-slate-900 sm:text-3xl">
             dont expect too much .x.
           </h1>
