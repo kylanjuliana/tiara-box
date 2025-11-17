@@ -2,7 +2,7 @@ import { GiftExperience } from "./components/GiftExperience";
 
 export default function Home() {
   return (
-    <div className="relative flex min-h-screen items-center justify-center bg-cyan-50 px-4 py-12 sm:px-6 overflow-hidden">
+    <div className="relative flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 overflow-hidden">
       {/* Soft pastel doodles in the background */}
       <div className="pointer-events-none absolute inset-0 z-0">
         {/* Blobs */}
@@ -35,4 +35,3 @@ export default function Home() {
     </div>
   );
 }
-
