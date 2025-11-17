@@ -114,7 +114,7 @@ export function TiaraBox({ unlocked }: TiaraBoxProps) {
           ? { scale: 0.97, y: 0 }
           : undefined
       }
-      className={`relative flex h-72 w-72 flex-col items-center justify-center rounded-2xl border border-cyan-300 bg-gradient-to-br from-cyan-100 to-cyan-200 p-4 shadow-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-cyan-400/60 sm:h-80 sm:w-80 transition-opacity ${
+      className={`relative flex h-72 w-72 flex-col items-center justify-center rounded-2xl border border-cyan-300 bg-linear-to-br from-cyan-100 to-cyan-200 p-4 shadow-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-cyan-400/60 sm:h-80 sm:w-80 transition-opacity ${
         unlocked ? "cursor-pointer" : "cursor-default"
       }`}
       aria-disabled={!unlocked}
@@ -130,7 +130,7 @@ export function TiaraBox({ unlocked }: TiaraBoxProps) {
       <div className="relative flex h-full w-full flex-col items-stretch justify-between">
         {/* Lid */}
         <motion.div
-          className="relative z-20 h-2/5 rounded-2xl bg-gradient-to-b from-cyan-200 to-cyan-300 shadow-md"
+          className="relative z-20 h-2/5 rounded-2xl bg-linear-to-b from-cyan-200 to-cyan-300 shadow-md"
           animate={
             unlocked && (isOpening || hasOpenedOnce)
               ? { y: -18, rotateX: 24 }
@@ -187,7 +187,7 @@ export function TiaraBox({ unlocked }: TiaraBoxProps) {
         </motion.div>
 
         {/* Box body */}
-        <div className="relative z-10 flex h-3/5 flex-col overflow-visible rounded-2xl bg-gradient-to-t from-cyan-200 to-cyan-100 px-4 pb-4 pt-6 shadow-md">
+        <div className="relative z-10 flex h-3/5 flex-col overflow-visible rounded-2xl bg-linear-to-t from-cyan-200 to-cyan-100 px-4 pb-4 pt-6 shadow-md">
           {/* Vertical ribbon */}
           <motion.div
             className="pointer-events-none absolute inset-y-0 left-1/2 w-4 -translate-x-1/2 bg-white/80"
@@ -228,7 +228,7 @@ export function TiaraBox({ unlocked }: TiaraBoxProps) {
                 <p className="text-sm font-semibold text-cyan-900">
                   Click to open your gift
                 </p>
-                <p className="max-w-[9rem] text-xs text-cyan-800/80">
+                <p className="max-w-36 text-xs text-cyan-800/80">
                   Each click reveals a new surprise inside the box.
                 </p>
               </div>
