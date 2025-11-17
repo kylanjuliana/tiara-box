@@ -115,10 +115,7 @@ export function TiaraBox({ unlocked }: TiaraBoxProps) {
             {!unlocked ? (
               <div className="flex flex-col items-center gap-2 text-center">
                 <p className="text-sm font-semibold text-cyan-900">
-                  Locked until the countdown ends
-                </p>
-                <p className="max-w-[10rem] text-xs text-cyan-800/80">
-                  Come back when the timer reaches zero to open your gift.
+                  locked until you finish your thingy
                 </p>
               </div>
             ) : !hasOpenedOnce ? (
