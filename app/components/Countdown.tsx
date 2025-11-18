@@ -9,7 +9,7 @@ type Remaining = {
   seconds: number;
 };
 
-const targetDate = new Date("2026-05-19T18:30:00Z").getTime();
+const targetDate = new Date("2026-07-22T04:31:00Z").getTime();
 
 type CountdownProps = {
   onComplete?: () => void;
@@ -82,7 +82,7 @@ type TimeChipProps = {
 
 function TimeChip({ label, value }: TimeChipProps) {
   return (
-    <div className="flex min-w-[3.5rem] flex-col items-center rounded-full bg-white/70 px-3 py-1 shadow-sm">
+    <div className="flex min-w-14 flex-col items-center rounded-full bg-white/70 px-3 py-1 shadow-sm">
       <span className="text-sm font-semibold text-cyan-900 tabular-nums">
         {value.toString().padStart(2, "0")}
       </span>
